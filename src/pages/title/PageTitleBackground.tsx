@@ -15,7 +15,7 @@ export default function PageTitleBackground() {
   const [dimensions, setDimensions] = useState({ width: window.innerWidth, height: window.innerHeight });
   const [emptyPos, setEmptyPos] = useState<Position | null>(null);
   const [squares, setSquares] = useState<Square[]>([]);
-  const gap = 5;
+  const gap = 2;
   const minRows = 5;
 
   const rows = Math.max(minRows, Math.floor(dimensions.height / (dimensions.width / minRows)));

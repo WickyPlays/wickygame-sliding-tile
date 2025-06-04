@@ -10,13 +10,16 @@ import DigitClockDisplay from "../../components/DigitClockDisplay/DigitClockDisp
 import board_image from "../../assets/image.jpg";
 import { getCookie, setCookie } from "../../utils/util_cookie";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import logo from "../../assets/logo.png";
 
 export default function PageGame() {
   const gameRef = useRef<GameCore | null>(null);
   const [tiles, setTiles] = useState<GameTile[]>([]);
   const [tileNumber, setTileNumber] = useState(3);
   const [movableTiles, setMovableTiles] = useState<GameTile[]>([]);
-  const [toggleNumber, setToggleNumber] = useState(getCookie("toggleNumber") === "true");
+  const [toggleNumber, setToggleNumber] = useState(
+    getCookie("toggleNumber") === "true"
+  );
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleTileMoved = useCallback((e: any) => {
@@ -113,20 +116,27 @@ export default function PageGame() {
       </button>
       <div className="page-grid">
         <div className="left-panel">
-          <div className="stat-move-container">
-            <p className="label">Moves</p>
-            <DigitDisplay
-              value={gameRef.current?.getMoves() || 0}
-              sx={{ border: "3px solid #fff" }}
-            />
+          <div className="title-container">
+            <img src={logo} alt="logo" className="logo" />
+            <p>Sliding Tile Game</p>
+            <p className="subtitle">A creation by Wicky</p>
           </div>
-          <div className="stat-time-container">
-            <p className="label">Time</p>
-            <DigitClockDisplay
-              startTime={gameRef.current?.getStartTime() || new Date()}
-              paused={gameRef.current?.status !== "playing"}
-              sx={{ border: "3px solid #fff" }}
-            />
+          <div>
+            <div className="stat-move-container">
+              <p className="label">Moves</p>
+              <DigitDisplay
+                value={gameRef.current?.getMoves() || 0}
+                sx={{ border: "3px solid #fff" }}
+              />
+            </div>
+            <div className="stat-time-container">
+              <p className="label">Time</p>
+              <DigitClockDisplay
+                startTime={gameRef.current?.getStartTime() || new Date()}
+                paused={gameRef.current?.status !== "playing"}
+                sx={{ border: "3px solid #fff" }}
+              />
+            </div>
           </div>
         </div>
         <div className="board-container">
@@ -168,7 +178,7 @@ export default function PageGame() {
               onClick={() => {
                 let mode = !toggleNumber;
                 setToggleNumber(mode);
-                setCookie("toggleNumber", mode.toString(), 30)
+                setCookie("toggleNumber", mode.toString(), 30);
               }}
             >
               {toggleNumber ? <IoEye /> : <IoEyeOff />}

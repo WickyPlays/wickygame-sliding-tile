@@ -141,28 +141,28 @@ export class GameCore {
   }
 
   public shuffleBoard() {
-    // const shuffleMoves = this.tileNumber * 100;
+    const shuffleMoves = this.tileNumber * 100;
 
-    // for (let i = 0; i < shuffleMoves; i++) {
-    //   const emptyTile = this.board.find((tile) => tile.attribute.empty)!;
-    //   const movableTiles = this.getMovableTiles();
+    for (let i = 0; i < shuffleMoves; i++) {
+      const emptyTile = this.board.find((tile) => tile.attribute.empty)!;
+      const movableTiles = this.getMovableTiles();
 
-    //   if (movableTiles.length > 0) {
-    //     const randomIndex = Math.floor(Math.random() * movableTiles.length);
-    //     const randomTile = movableTiles[randomIndex];
+      if (movableTiles.length > 0) {
+        const randomIndex = Math.floor(Math.random() * movableTiles.length);
+        const randomTile = movableTiles[randomIndex];
 
-    //     const tempNum = randomTile.attribute.num;
-    //     const tempStyle = randomTile.attribute.style;
+        const tempNum = randomTile.attribute.num;
+        const tempStyle = randomTile.attribute.style;
 
-    //     randomTile.attribute.num = emptyTile.attribute.num;
-    //     randomTile.attribute.style = emptyTile.attribute.style;
-    //     randomTile.attribute.empty = true;
+        randomTile.attribute.num = emptyTile.attribute.num;
+        randomTile.attribute.style = emptyTile.attribute.style;
+        randomTile.attribute.empty = true;
 
-    //     emptyTile.attribute.num = tempNum;
-    //     emptyTile.attribute.style = tempStyle;
-    //     emptyTile.attribute.empty = false;
-    //   }
-    // }
+        emptyTile.attribute.num = tempNum;
+        emptyTile.attribute.style = tempStyle;
+        emptyTile.attribute.empty = false;
+      }
+    }
     globalEvents.emit("tileMoved", { game: this, board: this.board });
   }
 

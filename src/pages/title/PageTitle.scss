@@ -8,10 +8,30 @@
   color: #ffffff;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  .video {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  &.mounted {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   .logo {
     width: 100px;
     height: 100px;
+    animation: fadeIn 0.8s ease 0.2s forwards;
+    opacity: 0;
   }
 
   .info-button {
@@ -26,6 +46,9 @@
     align-items: center;
     transition: color 0.3s;
     gap: 8px;
+    font-size: 17px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.4s forwards;
 
     &:hover {
       color: #d1d5db;
@@ -38,8 +61,13 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    gap: 100px;
+    gap: 50px;
     min-height: 100vh;
+
+    .title-container {
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.6s forwards;
+    }
 
     .welcome-text {
       font-size: 18px;
@@ -50,7 +78,9 @@
     .main-title {
       font-size: 48px;
       font-weight: 700;
-      letter-spacing: 0.05em;
+      margin: 20px 0;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.8s forwards;
     }
 
     .subtitle {
@@ -58,14 +88,17 @@
       font-weight: 400;
       color: transparent;
       margin-top: 20px;
-      background: linear-gradient(to right,
-          #ffffff 0%,
-          #22ff73 50%,
-          #ffffff 100%);
+      background: linear-gradient(
+        to right,
+        #ffffff 0%,
+        #22ff73 50%,
+        #ffffff 100%
+      );
       background-size: 200% 100%;
       background-clip: text;
       -webkit-background-clip: text;
-      animation: gradientScan 5s linear infinite;
+      animation: gradientScan 5s linear infinite, fadeIn 0.8s ease 1s forwards;
+      opacity: 0;
 
       @keyframes gradientScan {
         0% {
@@ -83,10 +116,12 @@
       background-color: #ffffff;
       color: #1f2937;
       font-weight: 600;
-      border: none;
-      border-radius: 9999px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
+      opacity: 0;
+      font-size: 20px;
+      animation: fadeIn 0.8s ease 1.2s forwards;
 
       &:hover {
         background-color: #e5e7eb;
@@ -99,10 +134,12 @@
     gap: 10px;
     font-size: 23px;
     align-items: center;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1s forwards;
 
     select {
-      background-color: transparent;
-      color: #ffffff;
+      background-color: #FFF;
+      color: #000000;
       border-radius: 8px;
       padding: 8px;
       font-size: 21px;
@@ -118,19 +155,116 @@
 
   .footer {
     position: absolute;
+    display: flex;
+    justify-content: space-between;
     z-index: 5;
+    align-items: center;
     bottom: 16px;
-    left: 20px;
+    left: 0px;
+    font-size: 20px;
+    gap: 10px;
+    width: 100%;
+    padding: 0 25px;
+    box-sizing: border-box;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.4s forwards;
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
     a {
-      color: #FFF !important;
+      color: #fff !important;
       text-decoration: none;
       font-weight: 500 !important;
-      
+
       &:hover {
-        color: #d1d5db !important;
         text-decoration: underline;
       }
+    }
+  }
+
+  .info-dialog {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    max-height: 80vh;
+    overflow-y: auto;
+    transition: bottom 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 100;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+
+    &.visible {
+      bottom: 0;
+    }
+
+    .info-dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      h2 {
+        font-size: 24px;
+        margin: 0;
+        color: #22ff73;
+      }
+
+      .close-button {
+        background: none;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+
+    .info-dialog-content {
+      ol {
+        padding-left: 20px;
+        margin-bottom: 20px;
+
+        li {
+          margin-bottom: 10px;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+      }
+
+      .tip {
+        font-style: italic;
+        color: #22ff73;
+        margin-top: 20px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -138,6 +272,19 @@
     .text-container {
       .main-title {
         font-size: 64px;
+      }
+    }
+
+    .info-dialog {
+      padding: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+
+      .info-dialog-content {
+        ol li {
+          font-size: 18px;
+        }
       }
     }
   }
