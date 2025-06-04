@@ -28,43 +28,45 @@ export class GameCore {
     this.tileNumber = tileNumber;
   }
 
- public setupBoard() {
-  this.status = "waiting";
-  this.board = [];
+  public setupBoard() {
+    this.status = "waiting";
+    this.board = [];
 
-  for (let col = 0; col < this.tileNumber; col++) {
-    for (let row = 0; row < this.tileNumber; row++) {
-      const backgroundPosition = `${(col / (this.tileNumber - 1)) * 100}% ${(row / (this.tileNumber - 1)) * 100}%`;
-      
-      this.board.push({
-        id: row * this.tileNumber + col,
-        attribute: {
-          row,
-          col,
-          num: row * this.tileNumber + col + 1,
-          empty: false,
-          style: { 
-            backgroundColor: "red", 
-            color: "white",
+    for (let col = 0; col < this.tileNumber; col++) {
+      for (let row = 0; row < this.tileNumber; row++) {
+        const backgroundPosition = `${(col / (this.tileNumber - 1)) * 100}% ${
+          (row / (this.tileNumber - 1)) * 100
+        }%`;
+
+        this.board.push({
+          id: row * this.tileNumber + col,
+          attribute: {
+            row,
+            col,
+            num: row * this.tileNumber + col + 1,
+            empty: false,
+            style: {
+              backgroundColor: "red",
+              color: "white",
+              backgroundPosition: backgroundPosition,
+              backgroundSize: `${this.tileNumber * 100}%`,
+            },
             backgroundPosition: backgroundPosition,
-            backgroundSize: `${this.tileNumber * 100}%`
           },
-          backgroundPosition: backgroundPosition
-        },
-      });
+        });
+      }
     }
-  }
 
-  let emptyTile = this.board[this.tileNumber * this.tileNumber - 1];
-  emptyTile.attribute.empty = true;
-  emptyTile.attribute.style = { 
-    backgroundColor: "#16a800", 
-    color: "black",
-    backgroundImage: 'none'
-  };
-  this.startTime = new Date()
-  this.status = "playing";
-}
+    let emptyTile = this.board[this.tileNumber * this.tileNumber - 1];
+    emptyTile.attribute.empty = true;
+    emptyTile.attribute.style = {
+      backgroundColor: "#16a800",
+      color: "black",
+      backgroundImage: "none",
+    };
+    this.startTime = new Date();
+    this.status = "playing";
+  }
 
   public getTiles() {
     return this.board;
@@ -208,9 +210,10 @@ export class GameCore {
             col,
             num: row * this.tileNumber + col + 1,
             empty: row === this.tileNumber - 1 && col === this.tileNumber - 1,
-            style: row === this.tileNumber - 1 && col === this.tileNumber - 1 
-              ? { backgroundColor: "#16a800", color: "black" }
-              : { backgroundColor: "red", color: "white" }
+            style:
+              row === this.tileNumber - 1 && col === this.tileNumber - 1
+                ? { backgroundColor: "#16a800", color: "black" }
+                : { backgroundColor: "red", color: "white" },
           },
         });
       }
