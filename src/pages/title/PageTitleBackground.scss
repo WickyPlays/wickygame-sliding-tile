@@ -1,0 +1,23 @@
+.page-title-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #002e5b;
+  z-index: -1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  position: relative;
+}
+
+.square {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.058);
+  transition: transform 0.3s ease-in-out;
+}
