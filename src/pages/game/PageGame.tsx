@@ -1,6 +1,7 @@
 //@ts-nocheck
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import "./PageGame.scss";
 import { GameCore } from "../../cores/GameCore";
 import video from "../../assets/bg.mp4";
@@ -113,9 +114,14 @@ export default function PageGame() {
         <source src={video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <button className="btn-back" onClick={() => window.location.replace("/wickygame-sliding-tile")}>
-        <TiArrowBackOutline />
-      </button>
+      <Link to="/">
+        <button
+          className="btn-back"
+        >
+          <TiArrowBackOutline />
+        </button>
+      </Link>
+
       <div className="page-grid">
         <div className="left-panel">
           <div className="title-container">
